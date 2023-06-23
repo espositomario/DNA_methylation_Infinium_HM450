@@ -16,7 +16,7 @@ Functional interpretation: Perform functional enrichment analysis to gain insigh
 Visualization: Generate informative plots and figures to visualize the DNA methylation patterns and differential methylation results.
 
 ## Installation and Dependencies
-To use this pipeline, you will need to have the following software and packages installed:
+To use this pipeline, you will need to have the following R packages installed:
 
 ```r
 
