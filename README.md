@@ -1,5 +1,7 @@
 # DNA_meth_illumina_pipeline
 
+*This project is related to the course of DNA/RNA Dynamics of the MSc in Bioinformatics - University of Bologna.*
+
 ## Introduction
 
 
