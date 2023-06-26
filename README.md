@@ -50,7 +50,7 @@ install.packages("future.apply")
 # viridis
 install.packages("viridis")
 ```
--> [R_notebook](R_notebook.md)
+-> [R_markdown](DNA_meth_Illumina.Rmd)
 
 
 - <a href="#1-load-raw-data" id="toc-1-load-raw-data">1. Load raw data</a>
