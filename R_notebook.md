@@ -383,6 +383,12 @@ legend("topright", legend=levels(targets$Group),col=c(1,2),pch = 19,cex=1.5)
 
 <img src="project_files/figure-gfm/unnamed-chunk-14-1.png" style="display: block; margin: auto;" />
 
+*WT and MUT are mainly divided by PC1* 
+
+*WT are all close together apart from R04C02 which is slightly different by PC1* 
+
+*MUT have different PC2 values apart from R02C02 and R03C02 which are very close; MUT R02C01 seems to show similarities with WT samples*
+
 ``` r
 targets$Sex<- as.factor(targets$Sex)
 palette(c("#F07168","#B7F4F8"))
