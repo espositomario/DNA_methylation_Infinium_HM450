@@ -47,4 +47,7 @@ install.packages("gplots")
 # future.apply (optional to parallelize)
 install.packages("future.apply")
 
+# viridis
+install.packages("viridis")
+
 ```
