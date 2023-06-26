@@ -3,6 +3,28 @@ DRD project
 **Mario Esposito**
 28-Jun-2023
 
+- <a href="#1-load-raw-data" id="toc-1-load-raw-data">1. Load raw data</a>
+- <a href="#2-create-rg-dataframes" id="toc-2-create-rg-dataframes">2.
+  Create R/G dataframes</a>
+- <a href="#3-get-probe-info" id="toc-3-get-probe-info">3. Get probe
+  info</a>
+- <a href="#4-create-the-object-mset" id="toc-4-create-the-object-mset">4.
+  Create the object MSet</a>
+- <a href="#5-qc" id="toc-5-qc">5. QC</a>
+- <a href="#6-beta-and-m-values" id="toc-6-beta-and-m-values">6. Beta and
+  M-values</a>
+- <a href="#7-normalization" id="toc-7-normalization">7. Normalization</a>
+- <a href="#8-pca" id="toc-8-pca">8. PCA</a>
+- <a href="#9-differentially-methylated-probes"
+  id="toc-9-differentially-methylated-probes">9. Differentially methylated
+  probes</a>
+- <a href="#10-multiple-test-correction"
+  id="toc-10-multiple-test-correction">10. Multiple test correction</a>
+- <a href="#11-volcano-and-manhattan-plot"
+  id="toc-11-volcano-and-manhattan-plot">11. Volcano and Manhattan
+  plot</a>
+- <a href="#12-heatmap" id="toc-12-heatmap">12. Heatmap</a>
+
 ------------------------------------------------------------------------
 
 ## 1. Load raw data
@@ -34,54 +56,26 @@ Red <- data.frame(getRed(RGset))
 head(Red)
 ```
 
-    ##          X200400320115_R01C01 X200400320115_R02C01 X200400320115_R03C01
-    ## 10600313                  591                  742                  613
-    ## 10600322                 4140                 4154                 4553
-    ## 10600328                 6535                 6250                 6223
-    ## 10600336                15752                15110                16277
-    ## 10600345                  597                 1027                  624
-    ## 10600353                 1464                 1381                 1863
-    ##          X200400320115_R04C01 X200400320115_R02C02 X200400320115_R03C02
-    ## 10600313                  577                  592                  637
-    ## 10600322                 3965                 3248                 3933
-    ## 10600328                 6208                 6154                 6301
-    ## 10600336                15746                13907                15217
-    ## 10600345                  742                  529                  458
-    ## 10600353                 1593                 1591                 1584
-    ##          X200400320115_R04C02 X200400320115_R05C02
-    ## 10600313                  812                  700
-    ## 10600322                 5749                 7030
-    ## 10600328                 6129                 5731
-    ## 10600336                14955                15061
-    ## 10600345                 1674                  393
-    ## 10600353                 1649                 1237
+<div data-pagedtable="false">
+
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["X200400320115_R01C01"],"name":[1],"type":["int"],"align":["right"]},{"label":["X200400320115_R02C01"],"name":[2],"type":["int"],"align":["right"]},{"label":["X200400320115_R03C01"],"name":[3],"type":["int"],"align":["right"]},{"label":["X200400320115_R04C01"],"name":[4],"type":["int"],"align":["right"]},{"label":["X200400320115_R02C02"],"name":[5],"type":["int"],"align":["right"]},{"label":["X200400320115_R03C02"],"name":[6],"type":["int"],"align":["right"]},{"label":["X200400320115_R04C02"],"name":[7],"type":["int"],"align":["right"]},{"label":["X200400320115_R05C02"],"name":[8],"type":["int"],"align":["right"]}],"data":[{"1":"591","2":"742","3":"613","4":"577","5":"592","6":"637","7":"812","8":"700","_rn_":"10600313"},{"1":"4140","2":"4154","3":"4553","4":"3965","5":"3248","6":"3933","7":"5749","8":"7030","_rn_":"10600322"},{"1":"6535","2":"6250","3":"6223","4":"6208","5":"6154","6":"6301","7":"6129","8":"5731","_rn_":"10600328"},{"1":"15752","2":"15110","3":"16277","4":"15746","5":"13907","6":"15217","7":"14955","8":"15061","_rn_":"10600336"},{"1":"597","2":"1027","3":"624","4":"742","5":"529","6":"458","7":"1674","8":"393","_rn_":"10600345"},{"1":"1464","2":"1381","3":"1863","4":"1593","5":"1591","6":"1584","7":"1649","8":"1237","_rn_":"10600353"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+
+</div>
 
 ``` r
 Green <- data.frame(getGreen(RGset))
 head(Green)
 ```
 
-    ##          X200400320115_R01C01 X200400320115_R02C01 X200400320115_R03C01
-    ## 10600313                  289                  390                  408
-    ## 10600322                 7070                 9820                 9225
-    ## 10600328                 6421                 7184                 6963
-    ## 10600336                 1571                 1467                 1526
-    ## 10600345                 5692                 6353                 7518
-    ## 10600353                 4280                 4824                 5346
-    ##          X200400320115_R04C01 X200400320115_R02C02 X200400320115_R03C02
-    ## 10600313                  360                  337                  431
-    ## 10600322                 8324                 8910                 9553
-    ## 10600328                 7171                 6836                 6522
-    ## 10600336                 1864                 1620                 1496
-    ## 10600345                 6360                 6418                 6805
-    ## 10600353                 4373                 5110                 4774
-    ##          X200400320115_R04C02 X200400320115_R05C02
-    ## 10600313                  428                  379
-    ## 10600322                 7285                 7154
-    ## 10600328                 7554                 6933
-    ## 10600336                 1602                 3729
-    ## 10600345                 6566                 4261
-    ## 10600353                 5290                 4087
+<div data-pagedtable="false">
+
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["X200400320115_R01C01"],"name":[1],"type":["int"],"align":["right"]},{"label":["X200400320115_R02C01"],"name":[2],"type":["int"],"align":["right"]},{"label":["X200400320115_R03C01"],"name":[3],"type":["int"],"align":["right"]},{"label":["X200400320115_R04C01"],"name":[4],"type":["int"],"align":["right"]},{"label":["X200400320115_R02C02"],"name":[5],"type":["int"],"align":["right"]},{"label":["X200400320115_R03C02"],"name":[6],"type":["int"],"align":["right"]},{"label":["X200400320115_R04C02"],"name":[7],"type":["int"],"align":["right"]},{"label":["X200400320115_R05C02"],"name":[8],"type":["int"],"align":["right"]}],"data":[{"1":"289","2":"390","3":"408","4":"360","5":"337","6":"431","7":"428","8":"379","_rn_":"10600313"},{"1":"7070","2":"9820","3":"9225","4":"8324","5":"8910","6":"9553","7":"7285","8":"7154","_rn_":"10600322"},{"1":"6421","2":"7184","3":"6963","4":"7171","5":"6836","6":"6522","7":"7554","8":"6933","_rn_":"10600328"},{"1":"1571","2":"1467","3":"1526","4":"1864","5":"1620","6":"1496","7":"1602","8":"3729","_rn_":"10600336"},{"1":"5692","2":"6353","3":"7518","4":"6360","5":"6418","6":"6805","7":"6566","8":"4261","_rn_":"10600345"},{"1":"4280","2":"4824","3":"5346","4":"4373","5":"5110","6":"4774","7":"5290","8":"4087","_rn_":"10600353"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+
+</div>
 
 ## 3. Get probe info
 
@@ -104,15 +98,13 @@ address_df=data.frame(Sample=colnames(probe_green), Red=unlist(probe_red, use.na
 address_df
 ```
 
-    ##                 Sample  Red Green Type Color
-    ## 1 X200400320115_R01C01 4732  2234   II  both
-    ## 2 X200400320115_R02C01 4508  3190   II  both
-    ## 3 X200400320115_R03C01 4975  2711   II  both
-    ## 4 X200400320115_R04C01 4178  2498   II  both
-    ## 5 X200400320115_R02C02 3140   800   II  both
-    ## 6 X200400320115_R03C02 2671  1597   II  both
-    ## 7 X200400320115_R04C02 4184  2824   II  both
-    ## 8 X200400320115_R05C02 1733  1401   II  both
+<div data-pagedtable="false">
+
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["Sample"],"name":[1],"type":["chr"],"align":["left"]},{"label":["Red"],"name":[2],"type":["int"],"align":["right"]},{"label":["Green"],"name":[3],"type":["int"],"align":["right"]},{"label":["Type"],"name":[4],"type":["chr"],"align":["left"]},{"label":["Color"],"name":[5],"type":["chr"],"align":["left"]}],"data":[{"1":"X200400320115_R01C01","2":"4732","3":"2234","4":"II","5":"both"},{"1":"X200400320115_R02C01","2":"4508","3":"3190","4":"II","5":"both"},{"1":"X200400320115_R03C01","2":"4975","3":"2711","4":"II","5":"both"},{"1":"X200400320115_R04C01","2":"4178","3":"2498","4":"II","5":"both"},{"1":"X200400320115_R02C02","2":"3140","3":"800","4":"II","5":"both"},{"1":"X200400320115_R03C02","2":"2671","3":"1597","4":"II","5":"both"},{"1":"X200400320115_R04C02","2":"4184","3":"2824","4":"II","5":"both"},{"1":"X200400320115_R05C02","2":"1733","3":"1401","4":"II","5":"both"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+
+</div>
 
 ## 4. Create the object MSet
 
@@ -195,15 +187,13 @@ summary_df <- data.frame(Sample=colnames(failed),Num_failed_position=cols,percen
 summary_df
 ```
 
-    ##                Sample Num_failed_position  percentage
-    ## 1 200400320115_R01C01                  45 0.009268566
-    ## 2 200400320115_R02C01                  26 0.005355171
-    ## 3 200400320115_R03C01                  28 0.005767108
-    ## 4 200400320115_R04C01                  32 0.006590980
-    ## 5 200400320115_R02C02                 190 0.039133945
-    ## 6 200400320115_R03C02                 130 0.026775857
-    ## 7 200400320115_R04C02                  17 0.003501458
-    ## 8 200400320115_R05C02                 406 0.083623062
+<div data-pagedtable="false">
+
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["Sample"],"name":[1],"type":["chr"],"align":["left"]},{"label":["Num_failed_position"],"name":[2],"type":["int"],"align":["right"]},{"label":["percentage"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"200400320115_R01C01","2":"45","3":"0.009268566"},{"1":"200400320115_R02C01","2":"26","3":"0.005355171"},{"1":"200400320115_R03C01","2":"28","3":"0.005767108"},{"1":"200400320115_R04C01","2":"32","3":"0.006590980"},{"1":"200400320115_R02C02","2":"190","3":"0.039133945"},{"1":"200400320115_R03C02","2":"130","3":"0.026775857"},{"1":"200400320115_R04C02","2":"17","3":"0.003501458"},{"1":"200400320115_R05C02","2":"406","3":"0.083623062"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+
+</div>
 
 *All samples has a percentage of failed probes lower than 1%, so we can
 keep all of them. (It would be an option to filter in only the probes
@@ -473,13 +463,13 @@ input_Manhattan <- data.frame(ID=final_ttest_corr_anno$IlmnID,CHR=final_ttest_co
 head(input_Manhattan)
 ```
 
-    ##           ID CHR   MAPINFO       PVAL
-    ## 1 cg00000029  16  53468112 0.03969214
-    ## 2 cg00000108   3  37459206 0.07100667
-    ## 3 cg00000109   3 171916037 0.04089225
-    ## 4 cg00000165   1  91194674 0.15398812
-    ## 5 cg00000236   8  42263294 0.39595545
-    ## 6 cg00000289  14  69341139 0.73450195
+<div data-pagedtable="false">
+
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["ID"],"name":[1],"type":["chr"],"align":["left"]},{"label":["CHR"],"name":[2],"type":["fct"],"align":["left"]},{"label":["MAPINFO"],"name":[3],"type":["int"],"align":["right"]},{"label":["PVAL"],"name":[4],"type":["dbl"],"align":["right"]}],"data":[{"1":"cg00000029","2":"16","3":"53468112","4":"0.03969214","_rn_":"1"},{"1":"cg00000108","2":"3","3":"37459206","4":"0.07100667","_rn_":"2"},{"1":"cg00000109","2":"3","3":"171916037","4":"0.04089225","_rn_":"3"},{"1":"cg00000165","2":"1","3":"91194674","4":"0.15398812","_rn_":"4"},{"1":"cg00000236","2":"8","3":"42263294","4":"0.39595545","_rn_":"5"},{"1":"cg00000289","2":"14","3":"69341139","4":"0.73450195","_rn_":"6"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+
+</div>
 
 ``` r
 levels(input_Manhattan$CHR)[levels(input_Manhattan$CHR) == "X"] <- "23"               
