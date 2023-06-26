@@ -41,7 +41,7 @@ targets <- read.metharray.sheet(baseDir)
 ```
 
     ## [1] "Input//Samplesheet_report_2023.csv"
-
+ 
 ``` r
 RGset <- read.metharray.exp(targets = targets)
 ```
@@ -156,7 +156,8 @@ contrary, low values of median indicate a lower quality of data.
 
 Two limitations of the QC plot:
 
-*Not taking into account the background signal *Not taking into account
+* Not taking into account the background signal 
+* Not taking into account
 whether some failure happens during the sample preparation: you still
 have high signal but it can be evaluated using control probes
 
