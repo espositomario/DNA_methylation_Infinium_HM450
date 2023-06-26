@@ -1,4 +1,4 @@
-# DNA_meth_illumina_pipeline
+# DNA methylation analysis (Illumina)
 
 *This project is related to the course of DNA/RNA Dynamics of the MSc in Bioinformatics - University of Bologna.*
 
