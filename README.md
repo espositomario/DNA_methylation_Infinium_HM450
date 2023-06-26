@@ -44,7 +44,7 @@ install.packages("qqman")
 # gplots
 install.packages("gplots")
 
-# future.apply (optional to parallelize)
+# future.apply (optional for parallelization)
 install.packages("future.apply")
 
 # viridis
