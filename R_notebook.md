@@ -399,13 +399,9 @@ legend("topright", legend=levels(targets$Sex),col=c(1,2),pch = 19,cex=1.5)
 
 <img src="project_files/figure-gfm/unnamed-chunk-15-1.png" style="display: block; margin: auto;" />
 
-*PCA by group: all the WT are closer each other(apart from 1 sample
-shifted a little on the right); while only 2 MUT cluster together
-(bottom right), 1 MUT is close to a WT and 1 MUT is located on top
-right.*
+*Males are well clusterized and they divide from Female by PC1*
 
-*PCA by Sex: all 3 Males are close to each other while the 5 Females are
-separated in 3 spots*
+*Females forms 3 clusters differing by PC2 and 1 of this cluster is close to the Males by PC2*
 
 ## 9. Differentially methylated probes
 
