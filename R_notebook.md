@@ -433,7 +433,6 @@ considering nominal pValues; how many after Bonferroni correction; how
 many after BH correction?
 
 ``` r
-final_ttest_0.05 <- final_ttest[final_ttest$t_test_p_val <= 0.05,]
 corr_pValues_BH <- p.adjust(final_ttest$t_test_p_val,"BH")
 corr_pValues_bonferroni <- p.adjust(final_ttest$t_test_p_val,"bonferroni")
 final_ttest_corr <- data.frame(final_ttest,corr_pValues_BH,corr_pValues_bonferroni)
