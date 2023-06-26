@@ -1,4 +1,4 @@
-DRD project
+Dynamic RNA/DNA exam project (MSc in Bioinformatics - Univerisity of Bologna)
 ================
 **Mario Esposito**
 28-Jun-2023
