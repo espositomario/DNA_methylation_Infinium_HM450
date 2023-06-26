@@ -1,6 +1,6 @@
-Dynamic RNA/DNA exam project (MSc in Bioinformatics - Univerisity of Bologna)
+DNA methylation analysis (Illumina)
 ================
-**Mario Esposito**
+Dynamic RNA/DNA exam project (MSc in Bioinformatics - Univerisity of Bologna)
 28-Jun-2023
 
 - <a href="#1-load-raw-data" id="toc-1-load-raw-data">1. Load raw data</a>
