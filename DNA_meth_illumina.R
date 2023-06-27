@@ -125,15 +125,13 @@ fviz_eig(pca_results, addlabels = T,xlab='PC number',ylab='% of var', barfill = 
 
 par(mfrow=c(1,1))
 palette(c("#DE6E4B","#03B2C9"))
-plot(pca_results$x[,1],pca_results$x[,2],cex=1.5,pch=19,col=targets$Group,xlab="PC1(33%)",ylab="PC2(22.3%)",xlim=c(-750,750),ylim=c(-750,750),main='PCA (Group)')
+# Set shapes for sexes
+sex_shapes <- c("M" = -0x2642L, "F" = -0x2640L)
+# Create the plot
+plot(pca_results$x[,1],pca_results$x[,2], col = targets$Group, pch = sex_shapes[targets$Sex],cex=1.5,xlab = "PC1(33%)", ylab = "PC2(22.3%)",main='PCA (Sex/Group)',xlim=c(-750,750),ylim=c(-750,750))
 text(pca_results$x[,1],pca_results$x[,2],labels=rownames(pca_results$x),cex=0.4,pos=2,srt=-30)
-legend("topright", legend=levels(targets$Group),col=c(1,2),pch = 19,cex=1.5)
+legend("topright", legend=levels(targets$Group),col=c(1,2),pch = 19)
 
-targets$Sex<- as.factor(targets$Sex)
-palette(c("#F07168","#B7F4F8"))
-plot(pca_results$x[,1],pca_results$x[,2],cex=1.5,pch=19,col=targets$Sex,xlab="PC1(33%)",ylab="PC2(22.3%)",xlim=c(-750,750),ylim=c(-750,750),main='PCA (Sex)')
-text(pca_results$x[,1],pca_results$x[,2],labels=rownames(pca_results$x),cex=0.4,pos=2,srt=-30)
-legend("topright", legend=levels(targets$Sex),col=c(1,2),pch = 19,cex=1.5)
 
 #speed up with parallelization
 library(future.apply)
