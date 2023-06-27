@@ -431,7 +431,7 @@ fviz_eig(pca_results, addlabels = T,xlab='PC number',ylab='% of var', barfill = 
 par(mfrow=c(1,1))
 palette(c("#DE6E4B","#03B2C9"))
 # Set shapes for sexes
-sex_shapes <- c("M" = -0x2640L, "F" = -0x2642L)
+sex_shapes <- c("M" = -0x2642L, "F" = -0x2640L)
 # Create the plot
 plot(pca_results$x[,1],pca_results$x[,2], col = targets$Group, pch = sex_shapes[targets$Sex],cex=1.5,xlab = "PC1(33%)", ylab = "PC2(22.3%)",main='PCA (Sex/Group)',xlim=c(-750,750),ylim=c(-750,750))
 text(pca_results$x[,1],pca_results$x[,2],labels=rownames(pca_results$x),cex=0.4,pos=2,srt=-30)
