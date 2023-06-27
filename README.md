@@ -53,8 +53,14 @@ install.packages("viridis")
 ### Infinium HumanMethylation450K Manifest file
 In some steps it is needed to check the Manifest file, which can be found on the [Illumina website](http://support.illumina.com/array/array_kits/infinium_humanmethylation450_beadchip_kit/downloads.html). The manifest was then cleaned, by removing the control and the rs probes.
 
--> [R_markdown](DNA_meth_Illumina.Rmd)
+-> [Rmd_file](DNA_meth_Illumina.Rmd)
 
+  **R_pipeline**
+    VVVVVVVVVV
+     VVVVVVVV
+      VVVVVV
+       VVVV
+        VV
 - <a href="#1-load-raw-data" id="toc-1-load-raw-data">1. Load raw data</a>
 - <a href="#2-create-rg-dataframes" id="toc-2-create-rg-dataframes">2.
   Create R/G dataframes</a>
@@ -93,7 +99,7 @@ targets <- read.metharray.sheet(baseDir)
 ```
 
     ## [1] "Input//Samplesheet_report_2023.csv"
- 
+
 ``` r
 RGset <- read.metharray.exp(targets = targets)
 ```
@@ -208,10 +214,10 @@ contrary, low values of median indicate a lower quality of data.
 
 Two limitations of the QC plot:
 
-* Not taking into account the background signal 
-* Not taking into account
-whether some failure happens during the sample preparation: you still
-have high signal but it can be evaluated using control probes
+- Not taking into account the background signal
+- Not taking into account whether some failure happens during the sample
+  preparation: you still have high signal but it can be evaluated using
+  control probes
 
 ``` r
 qc <- getQC(MSet.raw)
@@ -428,32 +434,27 @@ fviz_eig(pca_results, addlabels = T,xlab='PC number',ylab='% of var', barfill = 
 ``` r
 par(mfrow=c(1,1))
 palette(c("#DE6E4B","#03B2C9"))
-plot(pca_results$x[,1],pca_results$x[,2],cex=1.5,pch=19,col=targets$Group,xlab="PC1(33%)",ylab="PC2(22.3%)",xlim=c(-750,750),ylim=c(-750,750),main='PCA (Group)')
+# Set shapes for sexes
+sex_shapes <- c("M" = -0x2640L, "F" = -0x2642L)
+# Create the plot
+plot(pca_results$x[,1],pca_results$x[,2], col = targets$Group, pch = sex_shapes[targets$Sex],cex=1.5,xlab = "PC1(33%)", ylab = "PC2(22.3%)",main='PCA (Sex/Group)',xlim=c(-750,750),ylim=c(-750,750))
 text(pca_results$x[,1],pca_results$x[,2],labels=rownames(pca_results$x),cex=0.4,pos=2,srt=-30)
-legend("topright", legend=levels(targets$Group),col=c(1,2),pch = 19,cex=1.5)
+legend("topright", legend=levels(targets$Group),col=c(1,2),pch = 19)
 ```
 
 <img src="project_files/figure-gfm/unnamed-chunk-14-1.png" style="display: block; margin: auto;" />
+*WT and MUT are mainly divided by PC1*
 
-*WT and MUT are mainly divided by PC1* 
+*WT are all close together apart from R04C02 which is slightly different
+by PC1*
 
-*WT are all close together apart from R04C02 which is slightly different by PC1* 
-
-*MUT have different PC2 values apart from R02C02 and R03C02 which are very close; MUT R02C01 seems to show similarities with WT samples*
-
-``` r
-targets$Sex<- as.factor(targets$Sex)
-palette(c("#F07168","#B7F4F8"))
-plot(pca_results$x[,1],pca_results$x[,2],cex=1.5,pch=19,col=targets$Sex,xlab="PC1(33%)",ylab="PC2(22.3%)",xlim=c(-750,750),ylim=c(-750,750),main='PCA (Sex)')
-text(pca_results$x[,1],pca_results$x[,2],labels=rownames(pca_results$x),cex=0.4,pos=2,srt=-30)
-legend("topright", legend=levels(targets$Sex),col=c(1,2),pch = 19,cex=1.5)
-```
-
-<img src="project_files/figure-gfm/unnamed-chunk-15-1.png" style="display: block; margin: auto;" />
+*MUT have different PC2 values apart from R02C02 and R03C02 which are
+very close; MUT R02C01 seems to show similarities with WT samples*
 
 *Males are well clusterized and they divide from Female by PC1*
 
-*Females forms 3 clusters differing by PC2 and 1 of this cluster is close to the Males by PC2*
+*Females forms 3 clusters differing by PC2 and 1 of this cluster is
+close to the Males by PC2*
 
 ## 9. Differentially methylated probes
 
@@ -475,7 +476,7 @@ hist(final_ttest$t_test_p_val, main="P-value distribution (t-test)",xlab='p-val'
 abline(v=0.05,col="#ef233c")
 ```
 
-<img src="project_files/figure-gfm/unnamed-chunk-16-1.png" style="display: block; margin: auto;" />
+<img src="project_files/figure-gfm/unnamed-chunk-15-1.png" style="display: block; margin: auto;" />
 
 ## 10. Multiple test correction
 
@@ -502,7 +503,7 @@ boxplot(final_ttest_corr[,9:11], ylim = c(-0.1, 1.1), col = c("#1D2322", "#CD523
 legend("topright", legend=c("raw", "BH", "Bonferroni"),col=c("#1D2322", "#CD523C", "#87DFD6"),pch=19, cex=0.5, xpd=TRUE)
 ```
 
-<img src="project_files/figure-gfm/unnamed-chunk-18-1.png" style="display: block; margin: auto;" />
+<img src="project_files/figure-gfm/unnamed-chunk-17-1.png" style="display: block; margin: auto;" />
 
 ## 11. Volcano and Manhattan plot
 
@@ -530,7 +531,7 @@ points(BH_sig[,1], BH_sig[,2],pch=19,cex=0.6,col="#CD523C")
 legend("topright", legend=c("not_significant", "p_val < 0.05", "BH_p_val <  0.05"),col=c("#1D2322", "#324946", "#CD523C"),pch = 19)
 ```
 
-<img src="project_files/figure-gfm/unnamed-chunk-20-1.png" style="display: block; margin: auto;" />
+<img src="project_files/figure-gfm/unnamed-chunk-19-1.png" style="display: block; margin: auto;" />
 
 ``` r
 #
@@ -563,7 +564,7 @@ library(qqman)
 manhattan(input_Manhattan, snp="ID",chr="CHR", bp="MAPINFO", p="PVAL",annotatePval = 0.00001,col=rainbow(24),suggestiveline=F,genomewideline=-log10(0.00001) )
 ```
 
-<img src="project_files/figure-gfm/unnamed-chunk-22-1.png" style="display: block; margin: auto;" />
+<img src="project_files/figure-gfm/unnamed-chunk-21-1.png" style="display: block; margin: auto;" />
 
 ## 12. Heatmap
 
@@ -592,7 +593,7 @@ heatmap.2(input_heatmap,col=viridis(100),Rowv=T,Colv=T,dendrogram="both",key=T,C
 legend("topright", legend=levels(targets$Group),col=c('#CBCBCB','#393939'),pch = 19,cex=0.7)
 ```
 
-<img src="project_files/figure-gfm/unnamed-chunk-24-1.png" style="display: block; margin: auto;" />
+<img src="project_files/figure-gfm/unnamed-chunk-23-1.png" style="display: block; margin: auto;" />
 
 #### Linkage method-\> Single
 
@@ -602,7 +603,7 @@ heatmap.2(input_heatmap,col=viridis(100),Rowv=T,Colv=T,hclustfun = function(x) h
 legend("topright", legend=levels(targets$Group),col=c('#CBCBCB','#393939'),pch = 19,cex=0.7)
 ```
 
-<img src="project_files/figure-gfm/unnamed-chunk-25-1.png" style="display: block; margin: auto;" />
+<img src="project_files/figure-gfm/unnamed-chunk-24-1.png" style="display: block; margin: auto;" />
 
 #### Linkage method-\> Average
 
@@ -611,4 +612,4 @@ heatmap.2(input_heatmap,col=viridis(100),Rowv=T,Colv=T,hclustfun = function(x) h
 legend("topright", legend=levels(targets$Group),col=c('#CBCBCB','#393939'),pch = 19,cex=0.7)
 ```
 
-<img src="project_files/figure-gfm/unnamed-chunk-26-1.png" style="display: block; margin: auto;" />
+<img src="project_files/figure-gfm/unnamed-chunk-25-1.png" style="display: block; margin: auto;" />
