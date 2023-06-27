@@ -51,9 +51,7 @@ install.packages("future.apply")
 install.packages("viridis")
 ```
 ### Infinium HumanMethylation450K Manifest file
-In some steps it is needed to check the Manifest file, which can be found on the [Illumina website](http://support.illumina.com/array/array_kits/infinium_humanmethylation450_beadchip_kit/downloads.html)
-
-The manifest was then cleaned, by removing the control and the rs probes in the followinf way
+In some steps it is needed to check the Manifest file, which can be found on the [Illumina website](http://support.illumina.com/array/array_kits/infinium_humanmethylation450_beadchip_kit/downloads.html). The manifest was then cleaned, by removing the control and the rs probes.
 
 -> [R_markdown](DNA_meth_Illumina.Rmd)
 
