@@ -55,12 +55,8 @@ In some steps it is needed to check the Manifest file, which can be found on the
 
 -> [Rmd_file](DNA_meth_Illumina.Rmd)
 
-  **R_pipeline**
-    VVVVVVVVVV
-     VVVVVVVV
-      VVVVVV
-       VVVV
-        VV
+## R_pipeline
+
 - <a href="#1-load-raw-data" id="toc-1-load-raw-data">1. Load raw data</a>
 - <a href="#2-create-rg-dataframes" id="toc-2-create-rg-dataframes">2.
   Create R/G dataframes</a>
