@@ -50,8 +50,12 @@ install.packages("future.apply")
 # viridis
 install.packages("viridis")
 ```
--> [R_markdown](DNA_meth_Illumina.Rmd)
+### Infinium HumanMethylation450K Manifest file
+In some steps it is needed to check the Manifest file, which can be found on the [Illumina website](http://support.illumina.com/array/array_kits/infinium_humanmethylation450_beadchip_kit/downloads.html)
 
+The manifest was then cleaned, by removing the control and the rs probes in the followinf way
+
+-> [R_markdown](DNA_meth_Illumina.Rmd)
 
 - <a href="#1-load-raw-data" id="toc-1-load-raw-data">1. Load raw data</a>
 - <a href="#2-create-rg-dataframes" id="toc-2-create-rg-dataframes">2.
